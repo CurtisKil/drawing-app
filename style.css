@@ -44,3 +44,13 @@ canvas {
 .toolbox > *:last-child {
   margin-left: auto;
 }
+
+@media (max-width: 800px) {
+  canvas {
+    height: 100%;
+    width: 100%;
+  }
+  .toolbox {
+    width: 100%;
+  }
+}
