@@ -1,10 +1,17 @@
 const canvas = document.getElementById("canvas");
+const increaseBtn = document.getElementById("increase");
+const decreaseBtn = document.getElementById("decrease");
+const sizeEL = document.getElementById("size");
+const colorEl = document.getElementById("color");
+const clearEl = document.getElementById("clear");
+
 const ctx = canvas.getContext("2d");
 
-let size = 20;
+let size = 10;
 // Is the mouse pressed (mousedown event)
 let isPressed = false;
-let color = "black";
+colorEl.value = "black";
+let color = colorEl.value;
 let x;
 let y;
 
@@ -12,7 +19,6 @@ let y;
 canvas.addEventListener("mousedown", (e) => {
   isPressed = true;
 
-  // Positioning of where the mouse is
   x = e.offsetX;
   y = e.offsetY;
 });
@@ -21,7 +27,6 @@ canvas.addEventListener("mousedown", (e) => {
 canvas.addEventListener("mouseup", (e) => {
   isPressed = false;
 
-  // Reset positioning
   x = undefined;
   y = undefined;
 });
@@ -59,3 +64,36 @@ function drawLine(x1, y1, x2, y2) {
   ctx.lineWidth = size * 2;
   ctx.stroke();
 }
+
+function updateSizeOnScreen() {
+  sizeEL.innerText = size;
+}
+
+increaseBtn.addEventListener("click", () => {
+  // Size of line increases by 5 on when changed
+  size += 5;
+
+  //   Max size of 50
+  if (size > 50) {
+    size = 50;
+  }
+  updateSizeOnScreen();
+});
+
+decreaseBtn.addEventListener("click", () => {
+  // Size of line increases by 5 on when changed
+  size -= 5;
+
+  //   Min size of 5
+  if (size < 5) {
+    size = 5;
+  }
+  updateSizeOnScreen();
+});
+
+colorEl.addEventListener("change", (e) => (color = e.target.value));
+
+// Clear canvas
+clearEl.addEventListener("click", () =>
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+);
